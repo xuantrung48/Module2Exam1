@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Class>
+@{
+    ViewData["Title"] = "Danh sách lớp học:";
+}
+
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <div class="text-left">
+        <a asp-controller="Home" asp-action="CreateStudent" class="btn btn-primary mb-3 text-left"><i class="fa fa-plus"></i> Thêm học viên</a>
+    </div>
+    <div class="mx-auto">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Tên lớp</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ClassId</td>
+                        <td>@item.Name</td>
+                        <th>
+                            <a asp-controller="Home" asp-action="Class" asp-route-id="@item.ClassId"><i class="far fa-eye"></i></a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Student>
+@{
+    var cls = ViewBag.Class as Class;
+    ViewData["Title"] = "Danh sách học viên";
+}
+
+    <h1 class="display-4">Danh sách học viên lớp @cls.Name:</h1>
+    <div class="text-left">
+        <a asp-controller="Home" asp-action="CreateStudent" class="btn btn-primary mb-3 text-left"><i class="fa fa-plus"></i> Thêm học viên</a>
+    </div>
+    <div>
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Họ và tên</th>
+                    <th>Giới tính</th>
+                    <th>Ngày sinh</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.StudentId</td>
+                        <td>@item.FullName</td>
+                        <td>@item.Gender</td>
+                        <td>@item.Dob.ToShortDateString()</td>
+                        <td>
+                            <a asp-controller="Home" asp-action="ViewStudent" asp-route-id="@item.StudentId"><i class="far fa-eye"></i></a>
+                            <a asp-controller="Home" asp-action="EditStudent" asp-route-id="@item.StudentId"><i class="fas fa-edit"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Trở về</a>
+

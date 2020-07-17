@@ -1,0 +1,112 @@
+﻿@model Student
+
+@{
+    ViewData["Title"] = "Chỉnh sửa thông tin học viên";
+    var classes = ViewBag.Classes as IEnumerable<Class>;
+}
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <form asp-controller="Home" asp-action="EditStudent" method="post">
+        <input hidden asp-for="StudentId" value="@Model.StudentId" />
+        <div class="row form-group">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-9 gallery">
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-3">
+                <label asp-for="FullName">Họ và tên: </label>
+            </div>
+            <div class="col-md-9">
+                <input asp-for="FullName" class="form-control" placeholder="Nguyễn Văn A">
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-3">
+                <label asp-for="Email">Email: </label>
+            </div>
+            <div class="col-md-9">
+                <input asp-for="Email" class="form-control" placeholder="nguyenvana@email.com">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-3">
+                <label asp-for="ClassId">Lớp: </label>
+            </div>
+            <div class="col-md-9">
+                <select asp-for="ClassId" class="custom-select">
+                    <option value="">Chọn lớp</option>
+                    @if (classes.Any() && classes.Count() > 0)
+                    {
+                        foreach (var cls in classes)
+                        {
+                            <option value="@cls.ClassId">@cls.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="ClassId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-3">
+                Giới tính:
+            </div>
+            <div class="col-9">
+                <div>
+                    @Html.RadioButtonFor(s => s.Gender, Gender.Male) @Html.Label("Nam")
+                </div>
+                <div>
+                    @Html.RadioButtonFor(s => s.Gender, Gender.Female) @Html.Label("Nữ")
+                </div>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-3">
+                <label asp-for="Dob">Số lượng: </label>
+            </div>
+            <div class="col-md-9">
+                <input asp-for="Dob" class="form-control" type="date">
+                <span asp-validation-for="Dob" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-9">
+                <button type="submit" class="btn btn-primary">Lưu</button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+                    Xoá
+                </button>
+                <a asp-controller="Home" asp-action="Class" asp-route-id="@Model.ClassId" class="btn btn-secondary mx-3">Huỷ</a>
+            </div>
+        </div>
+    </form>
+
+
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Xoá học viên</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Xoá học viên?
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <a type="button" class="btn btn-danger" asp-controller="Home" asp-action="RemoveStudent" asp-route-id="@Model.StudentId">Xoá</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+            </div>
+
+        </div>
+    </div>
+</div>

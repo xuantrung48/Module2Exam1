@@ -1,0 +1,70 @@
+﻿@model Student
+@{
+    var cls = ViewBag.Class as Class;
+    ViewData["Title"] = "Danh sách học viên";
+}
+<h1 class="display-4">Chi tiết học viên:</h1>
+<div class="row">
+    <div class="col-6 text-right">
+        ID:
+    </div>
+    <div class="col-6">
+        @Model.StudentId
+    </div>
+    <div class="col-6 text-right">
+        Họ và tên:
+    </div>
+    <div class="col-6">
+        @Model.FullName
+    </div>
+    <div class="col-6 text-right">
+        Email:
+    </div>
+    <div class="col-6">
+        @Model.Email
+    </div>
+    <div class="col-6 text-right">
+        Lớp:
+    </div>
+    <div class="col-6">
+        @cls.Name
+    </div>
+    <div class="col-6 text-right">
+        Giới tính:
+    </div>
+    <div class="col-6">
+        @((Model.Gender == Gender.Male ? "Nam" : "Nữ"))
+    </div>
+    <div class="mx-auto d-block">
+        <a asp-controller="Home" asp-action="EditStudent" asp-route-id="@Model.StudentId" class="btn btn-warning">Chỉnh sửa</a>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+            Xoá
+        </button>
+        <a asp-controller="Home" asp-action="Class" asp-route-id="@Model.ClassId" class="btn btn-secondary">Trở về</a>
+    </div>
+</div>
+
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Xoá học viên</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Xoá học viên?
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <a type="button" class="btn btn-danger" asp-controller="Home" asp-action="RemoveStudent" asp-route-id="@Model.StudentId">Xoá</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+            </div>
+
+        </div>
+    </div>
+</div>
